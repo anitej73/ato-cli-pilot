@@ -1,5 +1,0 @@
-SC-12: compliant – All scanned files passed.
-AC-2: compliant – All scanned files passed.
-SC-13: compliant – All scanned files passed.
-CM-2: not compliant – No baseline configuration file detected
-    ✖ example_app.py  →  No baseline configuration file detected
