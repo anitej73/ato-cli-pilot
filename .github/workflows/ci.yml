@@ -1,5 +1,4 @@
 name: CI
-
 on: [push, pull_request]
 
 jobs:
@@ -7,34 +6,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣  Check out repository
       - uses: actions/checkout@v4
 
-      # 2️⃣  Set up Python 3.11
       - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+        with: { python-version: "3.11" }
 
-      # 3️⃣  Install your package (editable) and pytest
       - name: Install package & deps
         run: |
           python -m pip install --upgrade pip
-          pip install -e .          # installs ato_cli & ato-scan
+          pip install -e .
           pip install pytest
 
-      # 4️⃣  Run the unit tests
       - name: Run pytest
         run: pytest -q tests
 
-      # 5️⃣  Download the latest NIST OSCAL CLI fat-jar (~30 MB)
+      # Download OSCAL CLI fat JAR from Maven Central
       - name: Download OSCAL CLI (fat JAR)
         run: |
+          OSCAL_VER="1.0.3"
           curl -fsSL -o oscal-cli.jar \
-            https://github.com/usnistgov/oscal-cli/releases/latest/download/oscal-cli-fat.jar
-          # quick sanity check: list first entries inside the JAR
+            "https://repo1.maven.org/maven2/gov/nist/oscal/oscal-cli/${OSCAL_VER}/oscal-cli-${OSCAL_VER}-fat.jar"
           jar tf oscal-cli.jar | head -n 3
 
-      # 6️⃣  Generate OSCAL + validate
       - name: Validate OSCAL SSP
         run: |
           ato-scan -i ato_cli -o ci_report --quiet
