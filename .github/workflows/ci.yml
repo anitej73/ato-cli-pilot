@@ -5,9 +5,6 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./ato-cli    # ⬅️ every step runs inside the real project folder
 
     steps:
       - uses: actions/checkout@v4
@@ -19,11 +16,11 @@ jobs:
       - name: Install package & deps
         run: |
           python -m pip install --upgrade pip
-          pip install -e .               # installs from ./ato-cli since we cd’d into it
+          pip install -e ./ato-cli    # ← install from the subfolder where pyproject.toml lives
           pip install pytest oscal
 
       - name: Run tests
-        run: pytest -q tests             # tests/ lives here
+        run: pytest -q ./ato-cli/tests  # ← point pytest at your nested tests folder
 
       - name: Validate OSCAL
         run: |
