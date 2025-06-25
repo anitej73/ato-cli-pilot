@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ato-cli"
+version = "0.1.0"
+description = "Pilot CLI to scan code for NIST 800-53 controls and emit OSCAL."
+authors = [{ name = "Your Name" }]
+requires-python = ">=3.9"
+
+dependencies = [
+    "click",
+    "openai>=1.0.0",
+    "pyyaml"
+]
+
+[project.scripts]
+ato-scan = "ato_cli.cli:main"
+
+
+[tool.setuptools.packages.find]
+where = ["ato_cli"]
