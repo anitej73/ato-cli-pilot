@@ -1,34 +1,38 @@
 name: CI
+
 on: [push, pull_request]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
+      # ── Checkout the repo ───────────────────────────────────────────────
       - uses: actions/checkout@v4
 
+      # ── Set up Python, install your ATO-CLI in editable mode ────────────
       - uses: actions/setup-python@v5
-        with: { python-version: "3.11" }
+        with:
+          python-version: "3.11"
 
-      - name: Install package & deps
+      - name: Install package + pytest
         run: |
           python -m pip install --upgrade pip
-          pip install -e .
+          pip install -e .      # uses the pyproject at repo root
           pip install pytest
 
-      - name: Run pytest
+      # ── Run the unit tests ──────────────────────────────────────────────
+      - name: Run tests
         run: pytest -q tests
 
-      # Download OSCAL CLI fat JAR from Maven Central
-      - name: Download OSCAL CLI (fat JAR)
-        run: |
-          OSCAL_VER="1.0.3"
-          curl -fsSL -o oscal-cli.jar \
-            "https://repo1.maven.org/maven2/gov/nist/oscal/oscal-cli/${OSCAL_VER}/oscal-cli-${OSCAL_VER}-fat.jar"
-          jar tf oscal-cli.jar | head -n 3
-
-      - name: Validate OSCAL SSP
+      # ── Run your scanner to generate an OSCAL file ──────────────────────
+      - name: Generate OSCAL
         run: |
           ato-scan -i ato_cli -o ci_report --quiet
-          java -jar oscal-cli.jar validate ci_report_oscal.json
+
+      # ── Validate OSCAL with the FedRAMP container (includes oscal-cli) ─
+      - name: Validate OSCAL
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/data" \
+            ghcr.io/gsa/fedramp-automation/validation-tools:latest \
+            oscal-cli validate /data/ci_report_oscal.json

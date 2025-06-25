@@ -1,38 +1,3 @@
-# ── Python artifacts ───────────────────────────────────────
-__pycache__/
-*.py[cod]
-*.egg-info/
-*.egg
-*.pyo
-*.pyd
-
-# ── Virtual-envs ────────────────────────────────────────────
-venv/
-.env/
-.build/
-.dist/
-
-# ── Editor / IDE files ─────────────────────────────────────
-*.swp
-*.swo
-*.log
-.idea/
-.vscode/
-
-# ── Packaging / build output ───────────────────────────────
-dist/
-build/
-*.whl
-
-# ── Scan & test outputs ────────────────────────────────────
-out/                 # where you store reports
-*_report.*
-*_oscal.json
-*.json               # optional; comment out if you track JSON configs
-
-# ── OS metadata ────────────────────────────────────────────
-.DS_Store
-Thumbs.db
 venv/
 __pycache__/
 *.egg-info/

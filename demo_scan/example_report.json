@@ -1,0 +1,34 @@
+{
+  "results": [
+    {
+      "control": "SC-12",
+      "status": "compliant",
+      "reason": "All scanned files passed.",
+      "failures": []
+    },
+    {
+      "control": "AC-2",
+      "status": "compliant",
+      "reason": "All scanned files passed.",
+      "failures": []
+    },
+    {
+      "control": "SC-13",
+      "status": "compliant",
+      "reason": "All scanned files passed.",
+      "failures": []
+    },
+    {
+      "control": "CM-2",
+      "status": "not compliant",
+      "reason": "No baseline configuration file detected",
+      "failures": [
+        {
+          "file": "example_app.py",
+          "reason": "No baseline configuration file detected"
+        }
+      ],
+      "suggestion": "Add or document a secured baseline configuration (e.g., .conf / .ini file)"
+    }
+  ]
+}

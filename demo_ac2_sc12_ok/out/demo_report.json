@@ -1,0 +1,44 @@
+{
+  "results": [
+    {
+      "control": "SC-12",
+      "status": "compliant",
+      "reason": "All scanned files passed.",
+      "failures": []
+    },
+    {
+      "control": "AC-2",
+      "status": "compliant",
+      "reason": "All scanned files passed.",
+      "failures": []
+    },
+    {
+      "control": "SC-13",
+      "status": "not compliant",
+      "reason": "No encryption-at-rest code found",
+      "failures": [
+        {
+          "file": "good_app.py",
+          "reason": "No encryption-at-rest code found"
+        }
+      ],
+      "suggestion": "Use AES-256, a managed KMS key, or a cloud key-vault service to encrypt data at rest"
+    },
+    {
+      "control": "CM-2",
+      "status": "not compliant",
+      "reason": "No baseline configuration file detected",
+      "failures": [
+        {
+          "file": "good_app.py",
+          "reason": "No baseline configuration file detected"
+        },
+        {
+          "file": "bad_storage.js",
+          "reason": "No baseline configuration file detected"
+        }
+      ],
+      "suggestion": "Add or document a secured baseline configuration (e.g., .conf / .ini file)"
+    }
+  ]
+}

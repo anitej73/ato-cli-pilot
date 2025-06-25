@@ -1,0 +1,7 @@
+SC-12: compliant – All scanned files passed.
+AC-2: compliant – All scanned files passed.
+SC-13: not compliant – No encryption-at-rest code found
+    ✖ good_app.py  →  No encryption-at-rest code found
+CM-2: not compliant – No baseline configuration file detected
+    ✖ good_app.py  →  No baseline configuration file detected
+    ✖ bad_storage.js  →  No baseline configuration file detected
