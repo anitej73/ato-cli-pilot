@@ -33,3 +33,7 @@ out/                 # where you store reports
 # ── OS metadata ────────────────────────────────────────────
 .DS_Store
 Thumbs.db
+venv/
+__pycache__/
+*.egg-info/
+reports*/
