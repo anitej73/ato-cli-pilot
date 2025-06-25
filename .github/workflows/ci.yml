@@ -1,4 +1,3 @@
-# .github/workflows/ci.yml
 name: CI
 
 on: [push, pull_request]
@@ -8,36 +7,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣  Check out source
+      # 1️⃣  Check out repository
       - uses: actions/checkout@v4
 
-      # 2️⃣  Python 3.11
+      # 2️⃣  Set up Python 3.11
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      # 3️⃣  Install package + test deps
-      - name: Install editable package & deps
+      # 3️⃣  Install your package (editable) and pytest
+      - name: Install package & deps
         run: |
           python -m pip install --upgrade pip
-          pip install -e .                 # installs ato_cli & ato-scan
+          pip install -e .          # installs ato_cli & ato-scan
           pip install pytest
 
-      # 4️⃣  Run tests
+      # 4️⃣  Run the unit tests
       - name: Run pytest
         run: pytest -q tests
 
-      # 5️⃣  Download OSCAL CLI (fat JAR ~30 MB)
-      - name: Download OSCAL CLI
+      # 5️⃣  Download the latest NIST OSCAL CLI fat-jar (~30 MB)
+      - name: Download OSCAL CLI (fat JAR)
         run: |
-          curl -L -o oscal-cli.jar \
-            https://github.com/usnistgov/oscal-cli/releases/download/v1.0.3/oscal-cli-1.0.3-fat.jar
-          echo "OSCAL CLI downloaded"
+          curl -fsSL -o oscal-cli.jar \
+            https://github.com/usnistgov/oscal-cli/releases/latest/download/oscal-cli-fat.jar
+          # quick sanity check: list first entries inside the JAR
+          jar tf oscal-cli.jar | head -n 3
 
-      # 6️⃣  Generate & validate OSCAL
+      # 6️⃣  Generate OSCAL + validate
       - name: Validate OSCAL SSP
         run: |
-          # generate ci_report_oscal.json (quiet terminal output)
           ato-scan -i ato_cli -o ci_report --quiet
-          echo "Validating ci_report_oscal.json ..."
           java -jar oscal-cli.jar validate ci_report_oscal.json
