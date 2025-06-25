@@ -1,1 +1,1 @@
-# makes ato_cli a Python package
+# makes ato_cli a package
