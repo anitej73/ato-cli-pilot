@@ -12,16 +12,22 @@ jobs:
         with:
           python-version: "3.11"
 
+      # ── Install deps inside package dir ─────────────────────────
       - name: Install package & deps
+        working-directory: ./ato-cli       # <─ change
         run: |
           python -m pip install --upgrade pip
-          pip install -e .                 # ← fixed
+          pip install -e .                 # installs ato_cli
           pip install pytest nist-oscal
 
+      # ── Run tests ───────────────────────────────────────────────
       - name: Run tests
+        working-directory: ./ato-cli       # <─ same dir
         run: pytest -q
 
+      # ── Validate OSCAL ──────────────────────────────────────────
       - name: Validate OSCAL
+        working-directory: ./ato-cli       # <─ same dir
         run: |
           ato-scan -i ato_cli -o ci_report --quiet
           oscal validate ci_report_oscal.json
