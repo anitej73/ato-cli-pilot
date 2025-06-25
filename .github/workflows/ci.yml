@@ -5,22 +5,27 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
+      # ① Check out code
       - uses: actions/checkout@v4
+
+      # ② Set up Python
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
+      # ③ Install your package + deps
       - name: Install package & deps
         run: |
           python -m pip install --upgrade pip
-          pip install -e ./ato-cli
-          pip install pytest oscal
+          pip install -e .          # installs ato_cli & ato-scan
+          pip install pytest oscal  # test runner + OSCAL validator
 
+      # ④ Run tests
       - name: Run tests
-        run: pytest -q ./ato-cli/tests
+        run: pytest -q tests
 
+      # ⑤ Generate & validate OSCAL
       - name: Validate OSCAL
         run: |
           ato-scan -i ato_cli -o ci_report --quiet
