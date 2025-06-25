@@ -1,3 +1,4 @@
+# .github/workflows/ci.yml
 name: CI
 
 on: [push, pull_request]
@@ -5,28 +6,38 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
-      # ① Check out code
+      # 1️⃣  Check out source
       - uses: actions/checkout@v4
 
-      # ② Set up Python
+      # 2️⃣  Python 3.11
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      # ③ Install your package + deps
-      - name: Install package & deps
+      # 3️⃣  Install package + test deps
+      - name: Install editable package & deps
         run: |
           python -m pip install --upgrade pip
-          pip install -e .          # installs ato_cli & ato-scan
-          pip install pytest oscal  # test runner + OSCAL validator
+          pip install -e .                 # installs ato_cli & ato-scan
+          pip install pytest
 
-      # ④ Run tests
-      - name: Run tests
+      # 4️⃣  Run tests
+      - name: Run pytest
         run: pytest -q tests
 
-      # ⑤ Generate & validate OSCAL
-      - name: Validate OSCAL
+      # 5️⃣  Download OSCAL CLI (fat JAR ~30 MB)
+      - name: Download OSCAL CLI
         run: |
+          curl -L -o oscal-cli.jar \
+            https://github.com/usnistgov/oscal-cli/releases/download/v1.0.3/oscal-cli-1.0.3-fat.jar
+          echo "OSCAL CLI downloaded"
+
+      # 6️⃣  Generate & validate OSCAL
+      - name: Validate OSCAL SSP
+        run: |
+          # generate ci_report_oscal.json (quiet terminal output)
           ato-scan -i ato_cli -o ci_report --quiet
-          oscal validate ci_report_oscal.json
+          echo "Validating ci_report_oscal.json ..."
+          java -jar oscal-cli.jar validate ci_report_oscal.json
