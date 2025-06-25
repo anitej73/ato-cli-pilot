@@ -1,23 +1,31 @@
 name: CI
-on: [push,pull_request]
+
+on: [push, pull_request]
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      # 1) Checkout your repo
       - uses: actions/checkout@v4
 
+      # 2) Set up Python 3.11
       - uses: actions/setup-python@v5
-        with: { python-version: "3.11" }
+        with:
+          python-version: "3.11"
 
+      # 3) Install your CLI (editable) + test & OSCAL deps
       - name: Install package & deps
         run: |
           python -m pip install --upgrade pip
-          pip install -e ./ato-cli
+          pip install -e ./ato-cli    # points at the subfolder with pyproject.toml
           pip install pytest oscal
 
+      # 4) Run the pytest suite (point it at the nested tests folder)
       - name: Run tests
-        run: pytest -q
+        run: pytest -q ./ato-cli/tests
 
+      # 5) Generate & validate an OSCAL file
       - name: Validate OSCAL
         run: |
           ato-scan -i ato_cli -o ci_report --quiet
