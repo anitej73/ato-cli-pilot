@@ -1,26 +1,26 @@
 name: CI
-
 on: [push, pull_request]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ato-cli   # everything runs inside here
 
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+        with: { python-version: "3.11" }
 
       - name: Install package & deps
         run: |
           python -m pip install --upgrade pip
-          pip install -e ./ato-cli    # ← install from the subfolder where pyproject.toml lives
+          pip install -e .       # installs from the current folder
           pip install pytest oscal
 
       - name: Run tests
-        run: pytest -q ./ato-cli/tests  # ← point pytest at your nested tests folder
+        run: pytest -q          # tests/ is relative to ato-cli/
 
       - name: Validate OSCAL
         run: |
