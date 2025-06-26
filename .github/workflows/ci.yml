@@ -41,6 +41,10 @@ jobs:
         run: |
           docker run --rm -v ${{ github.workspace }}:/data ghcr.io/gsa/fedramp-automation/validation-tools:latest oscal-cli ssp validate /data/ci_report/ci_report_oscal.json
 
+      - name: Show OSCAL file contents
+        run: |
+          head -40 ci_report/ci_report_oscal.json
+
       - name: List files for debugging
         run: |
           ls -lR ci_report
