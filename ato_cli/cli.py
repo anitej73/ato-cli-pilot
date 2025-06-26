@@ -173,10 +173,9 @@ def consolidate(file_reports):
 
 
 def write_oscal(results: dict, out_path: str):
-    """Save a minimal OSCAL SSP JSON."""
+    """Save a minimal valid OSCAL SSP JSON."""
     import datetime
     import os
-    # Ensure output directory exists
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     ssp = {
         "system-security-plan": {
@@ -184,34 +183,90 @@ def write_oscal(results: dict, out_path: str):
             "metadata": {
                 "title": "ATO CLI SSP",
                 "last-modified": datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
-                "oscal-version": "1.1.0",
+                "version": "0.1.0",
+                "oscal-version": "1.1.0"
             },
-            "control-implementation": {
+            "import-profile": {
+                "href": "NIST_SP-800-53_rev5_catalog.json"
+            },
+            "system-characteristics": {
+                "system-ids": [
+                    {
+                        "identifier-type": "https://nvd.nist.gov",
+                        "id": "example-system"
+                    }
+                ],
+                "system-name": "Example System",
+                "description": "Minimal example for OSCAL SSP validation.",
+                "security-sensitivity-level": "moderate",
+                "system-information": {
+                    "information-types": [
+                        {
+                            "title": "Example Info Type",
+                            "description": "Example description"
+                        }
+                    ]
+                },
+                "status": {
+                    "state": "operational"
+                },
+                "responsible-parties": [],
+                "authorization-boundary": {
+                    "description": "Boundary description"
+                },
+                "network-architecture": {
+                    "description": "Network architecture description"
+                },
+                "data-flow": {
+                    "description": "Data flow description"
+                }
+            },
+            "system-implementation": {
                 "components": [
                     {
-                        "component-uuid": "comp-1",
+                        "uuid": str(uuid.uuid4()),
                         "type": "software",
                         "title": "ATO CLI Pilot",
-                        "implemented-requirements": [],
+                        "description": "ATO CLI Pilot component description.",
+                        "status": {
+                            "state": "operational"
+                        }
+                    }
+                ],
+                "users": [
+                    {
+                        "uuid": str(uuid.uuid4())
                     }
                 ]
             },
+            "control-implementation": {
+                "description": "Control implementation description.",
+                "implemented-requirements": []
+            }
         }
     }
-    impl = (
-        ssp["system-security-plan"]["control-implementation"]["components"][0][
-            "implemented-requirements"
-        ]
-    )
+    impl_reqs = ssp["system-security-plan"]["control-implementation"]["implemented-requirements"]
+    component_uuid = ssp["system-security-plan"]["system-implementation"]["components"][0]["uuid"]
     for cid, r in results.items():
         entry = {
+            "uuid": str(uuid.uuid4()),
             "control-id": cid,
-            "description": r["reason"],
-            "props": [{"name": "status", "value": r["status"]}],
+            "by-components": [
+                {
+                    "uuid": str(uuid.uuid4()),
+                    "component-uuid": component_uuid,
+                    "description": r["reason"],
+                    "props": [
+                        {
+                            "name": "control-origination",
+                            "value": "system-specific"
+                        }
+                    ],
+                    "remarks": r.get("suggestion", "")
+                }
+            ]
         }
-        if "suggestion" in r:
-            entry["remarks"] = r["suggestion"]
-        impl.append(entry)
+        impl_reqs.append(entry)
     with open(out_path, "w", encoding="utf-8") as fp:
         json.dump(ssp, fp, indent=2)
 
