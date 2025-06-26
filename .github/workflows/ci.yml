@@ -35,4 +35,4 @@ jobs:
           docker run --rm \
             -v "${{ github.workspace }}:/data" \
             ghcr.io/gsa/fedramp-automation/validation-tools:latest \
-            oscal-cli validate /data/ci_report_oscal.json
+            oscal-cli component-definition validate /data/ci_report_oscal.json
