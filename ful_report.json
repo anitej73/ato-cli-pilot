@@ -1,0 +1,72 @@
+{
+  "results": [
+    {
+      "control": "SC-12",
+      "status": "not compliant",
+      "reason": "No HTTPS or TLS detected",
+      "failures": [
+        {
+          "file": "ato_cli\\oscal_writer.py",
+          "reason": "No HTTPS or TLS detected"
+        },
+        {
+          "file": "ato_cli\\__init__.py",
+          "reason": "No HTTPS or TLS detected"
+        }
+      ],
+      "suggestion": "Use TLS 1.2+ or secure endpoints"
+    },
+    {
+      "control": "AC-2",
+      "status": "not compliant",
+      "reason": "No account-management found",
+      "failures": [
+        {
+          "file": "ato_cli\\oscal_writer.py",
+          "reason": "No account-management found"
+        },
+        {
+          "file": "ato_cli\\__init__.py",
+          "reason": "No account-management found"
+        }
+      ],
+      "suggestion": "Implement user provisioning (e.g., create_user)"
+    },
+    {
+      "control": "SC-13",
+      "status": "not compliant",
+      "reason": "No encryption-at-rest code found",
+      "failures": [
+        {
+          "file": "ato_cli\\oscal_writer.py",
+          "reason": "No encryption-at-rest code found"
+        },
+        {
+          "file": "ato_cli\\__init__.py",
+          "reason": "No encryption-at-rest code found"
+        }
+      ],
+      "suggestion": "Use AES-256, a managed KMS key, or a cloud key-vault service to encrypt data at rest"
+    },
+    {
+      "control": "CM-2",
+      "status": "not compliant",
+      "reason": "No baseline configuration file detected",
+      "failures": [
+        {
+          "file": "ato_cli\\cli.py",
+          "reason": "No baseline configuration file detected"
+        },
+        {
+          "file": "ato_cli\\oscal_writer.py",
+          "reason": "No baseline configuration file detected"
+        },
+        {
+          "file": "ato_cli\\__init__.py",
+          "reason": "No baseline configuration file detected"
+        }
+      ],
+      "suggestion": "Add or document a secured baseline configuration (e.g., .conf / .ini file)"
+    }
+  ]
+}
