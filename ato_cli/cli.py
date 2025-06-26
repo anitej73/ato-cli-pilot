@@ -175,6 +175,9 @@ def consolidate(file_reports):
 def write_oscal(results: dict, out_path: str):
     """Save a minimal OSCAL SSP JSON."""
     import datetime
+    import os
+    # Ensure output directory exists
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
     ssp = {
         "oscal-version": "1.1.0",
         "system-security-plan": {
@@ -287,9 +290,9 @@ def main(input: str, output: str, gpt: bool, quiet: bool):
     with open(f"{output}.json", "w", encoding="utf-8") as fp_json:
         json.dump({"results": list(results.values())}, fp_json, indent=2)
 
-    write_oscal(results, f"{output}_oscal.json")
+    write_oscal(results, f"{output}/ci_report_oscal.json")
     click.echo(f"\n📄  Saved: {output}.txt  {output}.md  {output}.json")
-    click.echo(f"🗄  OSCAL saved: {output}_oscal.json")
+    click.echo(f"🗄  OSCAL saved: {output}/ci_report_oscal.json")
 
 
 if __name__ == "__main__":

@@ -29,9 +29,9 @@ jobs:
         run: |
           ato-scan -i ato_cli -o ci_report --quiet
 
-      - name: List files for debugging
+      - name: List all files for debugging
         run: |
-          ls -lR ci_report
+          ls -lR
 
       - name: Validate OSCAL SSP
         run: |

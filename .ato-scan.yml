@@ -1,9 +1,9 @@
 strict_policy: true       
 exclude:
   - "out/**"              
-  - "*.json"               
 controls_enabled:
   - SC-12
   - AC-2
   - SC-13
+  - CM-2
   - CM-2
