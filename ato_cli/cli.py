@@ -179,12 +179,12 @@ def write_oscal(results: dict, out_path: str):
     # Ensure output directory exists
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     ssp = {
-        "oscal-version": "1.1.0",
         "system-security-plan": {
             "uuid": str(uuid.uuid4()),
             "metadata": {
                 "title": "ATO CLI SSP",
-                "last-modified": datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+                "last-modified": datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
+                "oscal-version": "1.1.0",
             },
             "control-implementation": {
                 "components": [
