@@ -1,56 +1,153 @@
 {
   "system-security-plan": {
-    "uuid": "65a93502-0004-4e1c-9586-2375dda5f640",
+    "uuid": "8be94018-1278-4319-b64c-47e33b73bad7",
     "metadata": {
       "title": "ATO CLI SSP",
-      "oscal-version": "1.1.0"
+      "last-modified": "2024-06-01T00:00:00Z",
+      "version": "0.1.0",
+      "oscal-version": "1.1.0",
+      "roles": [
+        {
+          "id": "owner",
+          "title": "System Owner"
+        }
+      ],
+      "parties": [
+        {
+          "uuid": "11111111-2222-4333-8444-555555555555",
+          "type": "person",
+          "name": "Jane Doe"
+        }
+      ]
     },
-    "control-implementation": {
+    "import-profile": {
+      "href": "NIST_SP-800-53_rev5_catalog.json"
+    },
+    "system-characteristics": {
+      "system-ids": [
+        {
+          "identifier-type": "https://nvd.nist.gov",
+          "id": "example-system"
+        }
+      ],
+      "system-name": "Example System",
+      "description": "Minimal example for OSCAL SSP validation.",
+      "security-sensitivity-level": "moderate",
+      "system-information": {
+        "information-types": [
+          {
+            "uuid": "99999999-aaaa-4aaa-bbbb-cccccccccccc",
+            "title": "Example Info Type",
+            "description": "Example description"
+          }
+        ]
+      },
+      "status": {
+        "state": "operational"
+      },
+      "responsible-parties": [
+        {
+          "role-id": "owner",
+          "party-uuids": ["11111111-2222-4333-8444-555555555555"]
+        }
+      ],
+      "authorization-boundary": {
+        "description": "Boundary description"
+      },
+      "network-architecture": {
+        "description": "Network architecture description"
+      },
+      "data-flow": {
+        "description": "Data flow description"
+      }
+    },
+    "system-implementation": {
       "components": [
         {
-          "component-uuid": "comp-1",
+          "uuid": "22222222-3333-4444-8555-666666666666",
           "type": "software",
           "title": "ATO CLI Pilot",
-          "implemented-requirements": [
+          "description": "ATO CLI Pilot component description.",
+          "status": {
+            "state": "operational"
+          }
+        }
+      ],
+      "users": [
+        {
+          "uuid": "33333333-4444-4555-8666-777777777777"
+        }
+      ]
+    },
+    "control-implementation": {
+      "description": "Control implementation description.",
+      "implemented-requirements": [
+        {
+          "uuid": "44444444-5555-4666-8777-888888888888",
+          "control-id": "SC-12",
+          "by-components": [
             {
-              "control-id": "SC-12",
-              "description": "All scanned files passed.",
+              "uuid": "aaaaaaa1-aaaa-4aaa-8aaa-aaaaaaaaaaa1",
+              "component-uuid": "22222222-3333-4444-8555-666666666666",
+              "description": "No HTTPS or TLS detected",
               "props": [
                 {
-                  "name": "status",
-                  "value": "compliant"
+                  "name": "control-origination",
+                  "value": "system-specific"
                 }
-              ]
-            },
+              ],
+              "remarks": "Use TLS 1.2+ or secure endpoints"
+            }
+          ]
+        },
+        {
+          "uuid": "55555555-6666-4777-8888-999999999999",
+          "control-id": "AC-2",
+          "by-components": [
             {
-              "control-id": "AC-2",
+              "uuid": "aaaaaaa2-aaaa-4aaa-8aaa-aaaaaaaaaaa2",
+              "component-uuid": "22222222-3333-4444-8555-666666666666",
               "description": "No account-management found",
               "props": [
                 {
-                  "name": "status",
-                  "value": "not compliant"
+                  "name": "control-origination",
+                  "value": "system-specific"
                 }
               ],
               "remarks": "Implement user provisioning (e.g., create_user)"
-            },
+            }
+          ]
+        },
+        {
+          "uuid": "66666666-7777-4888-9999-000000000000",
+          "control-id": "SC-13",
+          "by-components": [
             {
-              "control-id": "SC-13",
+              "uuid": "aaaaaaa3-aaaa-4aaa-8aaa-aaaaaaaaaaa3",
+              "component-uuid": "22222222-3333-4444-8555-666666666666",
               "description": "No encryption-at-rest code found",
               "props": [
                 {
-                  "name": "status",
-                  "value": "not compliant"
+                  "name": "control-origination",
+                  "value": "system-specific"
                 }
               ],
               "remarks": "Use AES-256, a managed KMS key, or a cloud key-vault service to encrypt data at rest"
-            },
+            }
+          ]
+        },
+        {
+          "uuid": "88888888-9999-4aaa-bbbb-cccccccccccc",
+          "control-id": "CM-2",
+          "by-components": [
             {
-              "control-id": "CM-2",
+              "uuid": "aaaaaaa4-aaaa-4aaa-8aaa-aaaaaaaaaaa4",
+              "component-uuid": "22222222-3333-4444-8555-666666666666",
               "description": "No baseline configuration file detected",
               "props": [
                 {
-                  "name": "status",
-                  "value": "not compliant"
+                  "name": "control-origination",
+                  "value": "system-specific"
                 }
               ],
               "remarks": "Add or document a secured baseline configuration (e.g., .conf / .ini file)"

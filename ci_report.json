@@ -2,9 +2,19 @@
   "results": [
     {
       "control": "SC-12",
-      "status": "compliant",
-      "reason": "All scanned files passed.",
-      "failures": []
+      "status": "not compliant",
+      "reason": "No HTTPS or TLS detected",
+      "failures": [
+        {
+          "file": "ato_cli\\oscal_writer.py",
+          "reason": "No HTTPS or TLS detected"
+        },
+        {
+          "file": "ato_cli\\__init__.py",
+          "reason": "No HTTPS or TLS detected"
+        }
+      ],
+      "suggestion": "Use TLS 1.2+ or secure endpoints"
     },
     {
       "control": "AC-2",
@@ -12,7 +22,11 @@
       "reason": "No account-management found",
       "failures": [
         {
-          "file": "sample_scan.py",
+          "file": "ato_cli\\oscal_writer.py",
+          "reason": "No account-management found"
+        },
+        {
+          "file": "ato_cli\\__init__.py",
           "reason": "No account-management found"
         }
       ],
@@ -24,7 +38,11 @@
       "reason": "No encryption-at-rest code found",
       "failures": [
         {
-          "file": "sample_scan.py",
+          "file": "ato_cli\\oscal_writer.py",
+          "reason": "No encryption-at-rest code found"
+        },
+        {
+          "file": "ato_cli\\__init__.py",
           "reason": "No encryption-at-rest code found"
         }
       ],
@@ -36,7 +54,15 @@
       "reason": "No baseline configuration file detected",
       "failures": [
         {
-          "file": "sample_scan.py",
+          "file": "ato_cli\\cli.py",
+          "reason": "No baseline configuration file detected"
+        },
+        {
+          "file": "ato_cli\\oscal_writer.py",
+          "reason": "No baseline configuration file detected"
+        },
+        {
+          "file": "ato_cli\\__init__.py",
           "reason": "No baseline configuration file detected"
         }
       ],

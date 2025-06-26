@@ -174,10 +174,15 @@ def consolidate(file_reports):
 
 def write_oscal(results: dict, out_path: str):
     """Save a minimal OSCAL SSP JSON."""
+    import datetime
     ssp = {
+        "oscal-version": "1.1.0",
         "system-security-plan": {
             "uuid": str(uuid.uuid4()),
-            "metadata": {"title": "ATO CLI SSP", "oscal-version": "1.1.0"},
+            "metadata": {
+                "title": "ATO CLI SSP",
+                "last-modified": datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+            },
             "control-implementation": {
                 "components": [
                     {

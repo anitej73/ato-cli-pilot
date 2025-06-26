@@ -1,7 +1,13 @@
-SC-12: compliant – All scanned files passed.
+SC-12: not compliant – No HTTPS or TLS detected
+    ✖ ato_cli\oscal_writer.py  →  No HTTPS or TLS detected
+    ✖ ato_cli\__init__.py  →  No HTTPS or TLS detected
 AC-2: not compliant – No account-management found
-    ✖ sample_scan.py  →  No account-management found
+    ✖ ato_cli\oscal_writer.py  →  No account-management found
+    ✖ ato_cli\__init__.py  →  No account-management found
 SC-13: not compliant – No encryption-at-rest code found
-    ✖ sample_scan.py  →  No encryption-at-rest code found
+    ✖ ato_cli\oscal_writer.py  →  No encryption-at-rest code found
+    ✖ ato_cli\__init__.py  →  No encryption-at-rest code found
 CM-2: not compliant – No baseline configuration file detected
-    ✖ sample_scan.py  →  No baseline configuration file detected
+    ✖ ato_cli\cli.py  →  No baseline configuration file detected
+    ✖ ato_cli\oscal_writer.py  →  No baseline configuration file detected
+    ✖ ato_cli\__init__.py  →  No baseline configuration file detected
