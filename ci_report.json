@@ -1,0 +1,46 @@
+{
+  "results": [
+    {
+      "control": "SC-12",
+      "status": "compliant",
+      "reason": "All scanned files passed.",
+      "failures": []
+    },
+    {
+      "control": "AC-2",
+      "status": "not compliant",
+      "reason": "No account-management found",
+      "failures": [
+        {
+          "file": "sample_scan.py",
+          "reason": "No account-management found"
+        }
+      ],
+      "suggestion": "Implement user provisioning (e.g., create_user)"
+    },
+    {
+      "control": "SC-13",
+      "status": "not compliant",
+      "reason": "No encryption-at-rest code found",
+      "failures": [
+        {
+          "file": "sample_scan.py",
+          "reason": "No encryption-at-rest code found"
+        }
+      ],
+      "suggestion": "Use AES-256, a managed KMS key, or a cloud key-vault service to encrypt data at rest"
+    },
+    {
+      "control": "CM-2",
+      "status": "not compliant",
+      "reason": "No baseline configuration file detected",
+      "failures": [
+        {
+          "file": "sample_scan.py",
+          "reason": "No baseline configuration file detected"
+        }
+      ],
+      "suggestion": "Add or document a secured baseline configuration (e.g., .conf / .ini file)"
+    }
+  ]
+}

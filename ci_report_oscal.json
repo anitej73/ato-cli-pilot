@@ -1,0 +1,63 @@
+{
+  "system-security-plan": {
+    "uuid": "65a93502-0004-4e1c-9586-2375dda5f640",
+    "metadata": {
+      "title": "ATO CLI SSP",
+      "oscal-version": "1.1.0"
+    },
+    "control-implementation": {
+      "components": [
+        {
+          "component-uuid": "comp-1",
+          "type": "software",
+          "title": "ATO CLI Pilot",
+          "implemented-requirements": [
+            {
+              "control-id": "SC-12",
+              "description": "All scanned files passed.",
+              "props": [
+                {
+                  "name": "status",
+                  "value": "compliant"
+                }
+              ]
+            },
+            {
+              "control-id": "AC-2",
+              "description": "No account-management found",
+              "props": [
+                {
+                  "name": "status",
+                  "value": "not compliant"
+                }
+              ],
+              "remarks": "Implement user provisioning (e.g., create_user)"
+            },
+            {
+              "control-id": "SC-13",
+              "description": "No encryption-at-rest code found",
+              "props": [
+                {
+                  "name": "status",
+                  "value": "not compliant"
+                }
+              ],
+              "remarks": "Use AES-256, a managed KMS key, or a cloud key-vault service to encrypt data at rest"
+            },
+            {
+              "control-id": "CM-2",
+              "description": "No baseline configuration file detected",
+              "props": [
+                {
+                  "name": "status",
+                  "value": "not compliant"
+                }
+              ],
+              "remarks": "Add or document a secured baseline configuration (e.g., .conf / .ini file)"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

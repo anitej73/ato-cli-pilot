@@ -1,0 +1,7 @@
+SC-12: compliant – All scanned files passed.
+AC-2: not compliant – No account-management found
+    ✖ sample_scan.py  →  No account-management found
+SC-13: not compliant – No encryption-at-rest code found
+    ✖ sample_scan.py  →  No encryption-at-rest code found
+CM-2: not compliant – No baseline configuration file detected
+    ✖ sample_scan.py  →  No baseline configuration file detected
