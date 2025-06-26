@@ -184,7 +184,20 @@ def write_oscal(results: dict, out_path: str):
                 "title": "ATO CLI SSP",
                 "last-modified": datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
                 "version": "0.1.0",
-                "oscal-version": "1.1.0"
+                "oscal-version": "1.1.0",
+                "roles": [
+                    {
+                        "id": "owner",
+                        "title": "System Owner"
+                    }
+                ],
+                "parties": [
+                    {
+                        "uuid": "11111111-2222-4333-8444-555555555555",
+                        "type": "person",
+                        "name": "Jane Doe"
+                    }
+                ]
             },
             "import-profile": {
                 "href": "../NIST_SP-800-53_rev5_catalog.json"
@@ -210,7 +223,12 @@ def write_oscal(results: dict, out_path: str):
                 "status": {
                     "state": "operational"
                 },
-                "responsible-parties": [],
+                "responsible-parties": [
+                    {
+                        "role-id": "owner",
+                        "party-uuids": ["11111111-2222-4333-8444-555555555555"]
+                    }
+                ],
                 "authorization-boundary": {
                     "description": "Boundary description"
                 },
