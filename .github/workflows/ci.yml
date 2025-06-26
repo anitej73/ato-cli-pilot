@@ -29,10 +29,6 @@ jobs:
         run: |
           ato-scan -i ato_cli -o ci_report --quiet
 
-      - name: Validate OSCAL
+      - name: Validate OSCAL SSP
         run: |
-          docker run --rm \
-            -v "${{ github.workspace }}:/data" \
-            ghcr.io/gsa/fedramp-automation/validation-tools:latest \
-            oscal-cli ssp validate /data/ci_report_oscal.json
-            oscal-cli ssp validate /data/ci_report_oscal.json
+          docker run --rm -v ${{ github.workspace }}:/data ghcr.io/gsa/fedramp-automation/validation-tools:latest oscal-cli ssp validate /data/ci_report_oscal.json
