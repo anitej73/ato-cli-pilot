@@ -31,4 +31,4 @@ jobs:
 
       - name: Validate OSCAL SSP
         run: |
-          docker run --rm -v ${{ github.workspace }}:/data ghcr.io/gsa/fedramp-automation/validation-tools:latest oscal-cli ssp validate /data/ci_report_oscal.json
+          docker run --rm -v ${{ github.workspace }}:/data ghcr.io/gsa/fedramp-automation/validation-tools:latest oscal-cli ssp validate /data/ci_report/ci_report_oscal.json
