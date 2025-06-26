@@ -48,3 +48,7 @@ jobs:
       - name: List files for debugging
         run: |
           ls -lR ci_report
+
+      - name: Copy catalog to output dir
+        run: |
+          cp NIST_SP-800-53_rev5_catalog.json ci_report/

@@ -187,7 +187,7 @@ def write_oscal(results: dict, out_path: str):
                 "oscal-version": "1.1.0"
             },
             "import-profile": {
-                "href": "NIST_SP-800-53_rev5_catalog.json"
+                "href": "../NIST_SP-800-53_rev5_catalog.json"
             },
             "system-characteristics": {
                 "system-ids": [
